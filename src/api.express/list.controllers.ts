@@ -5,6 +5,7 @@ import { bancosController } from "../infra/banco";
 import { colheitasController } from "../infra/colheita";
 import { corteCoracoesController } from "../infra/cortecoracao";
 import { fitasController } from "../infra/fitas";
+import { healthController } from "../infra/health";
 import { inventarioController } from "../infra/inventariocachos";
 import { lotesController } from "../infra/lote";
 import { mediasAreasController } from "../infra/mediasareas";
@@ -31,5 +32,6 @@ export const controllers = [
     colheitasController, 
     resumoColheitaController, 
     inventarioController,
-    ajustesFitasController
+    ajustesFitasController,
+    healthController
 ]
