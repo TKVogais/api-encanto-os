@@ -72,12 +72,20 @@ export default class ApiExpress {
     });
   }
 
-  start(port: number = 4000, host: string = "127.0.0.0"): void {
-    this.app.listen(port, host, () => {
-      console.log(`Servidor rodando na porta ${port} e no host ${host}`);
-      this.printRoutes();
-    });
+  start(port: number = 4000, host?: string): void {
+    if (host) {
+      this.app.listen(port, host, () => {
+        console.log(`Servidor rodando na porta ${port} e no host ${host}`);
+        this.printRoutes();
+      });
+    } else {
+      this.app.listen(port, () => {
+        console.log(`Servidor rodando na porta ${port}`);
+        this.printRoutes();
+      });
+    }
   }
+
 
   private printRoutes(): void {
     const routes = (this.app as any)._router.stack
