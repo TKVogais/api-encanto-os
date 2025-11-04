@@ -11,10 +11,10 @@ export interface IResumoColheitaController {
 }
 
 export interface IResumoColheitaService {
-  create(dto: CreateResumoColheitaDto, transaction: Transaction): Promise<ResCreateColheitaDto>;
+  create(dto: CreateResumoColheitaDto, transaction?: Transaction): Promise<ResCreateColheitaDto>;
   list(): Promise<ResumoColheita[]>;
   listByYear(ano: number): Promise<ResumoColheita[]>;
-  update(dto: ResumoColheita, transaction: Transaction): Promise<ResUpdateResumoColheitaDto>;
+  update(dto: ResumoColheita, transaction?: Transaction): Promise<ResUpdateResumoColheitaDto>;
   findByParams(params: FindByParamsDto, transaction: Transaction): Promise<ResumoColheita | null>
   listByBetweenYearMonth(): Promise<ResumoColheita[]>
 }
