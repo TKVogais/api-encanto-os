@@ -72,7 +72,7 @@ export default class ApiExpress {
     });
   }
 
-  start(port: number = 4000, host?: string): void {
+  start(port: number = 4000, host: string = "0.0.0.0"): void {
     if (host) {
       this.app.listen(port, host, () => {
         console.log(`Servidor rodando na porta ${port} e no host ${host}`);
