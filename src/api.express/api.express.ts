@@ -74,7 +74,7 @@ export default class ApiExpress {
 
   start(port: number = 4000, host: string = "127.0.0.0"): void {
     this.app.listen(port, host, () => {
-      console.log(`Servidor rodando na porta ${port}`);
+      console.log(`Servidor rodando na porta ${port} e no host ${host}`);
       this.printRoutes();
     });
   }
