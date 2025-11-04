@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                     // Versão JS de saída
+    "module": "commonjs",                   // Sistema de módulos Node.js
+    "lib": ["ES2020"],                      // Bibliotecas padrão
+    "allowJs": true,                        // Permite arquivos .js se precisar misturar
+    "outDir": "./dist",                     // Pasta de saída do JS compilado
+    "rootDir": "./src",                     // Pasta raiz dos arquivos TS
+    "strict": false,                         // Ativa verificações rigorosas
+    "moduleResolution": "node",             // Resolve módulos como Node.js
+    "esModuleInterop": true,                // Facilita importações de CommonJS
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true                    // Evita checagem de tipos de libs externas
+  },
+  "include": ["src/**/*.ts"],               // Inclui todos os TS dentro de src
+  "exclude": ["dist", "node_modules"]       // Exclui a pasta dist e node_modules
+}

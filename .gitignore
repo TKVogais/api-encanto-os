@@ -1,1 +1,10 @@
 /node_modules
+/requests
+/gen-seeders
+/dist
+/migrations
+/colheita.json
+/corte_coracao.json
+/data.json
+/generate.feature.gpt.md
+/.env

@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7.4-alpine
+    container_name: redis-server
+    restart: always
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]  # habilita persistência AOF
+    volumes:
+      - redis_data:/data
+    networks:
+      - redis-net
+
+volumes:
+  redis_data:
+
+networks:
+  redis-net:
+    driver: bridge
