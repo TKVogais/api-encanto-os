@@ -28,7 +28,7 @@ export default class ApiExpress {
 
     // ✅ Configuração CORS para aceitar cookies HttpOnly do front-end
     app.use(cors({
-      origin: "http://localhost:3000",
+      origin: "*",
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization", "x-user-permissions"]

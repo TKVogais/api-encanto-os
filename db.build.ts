@@ -208,7 +208,7 @@ const { hash } = require("./src/util/hash.js");
 
     await sequelize.query(`
       UPDATE pessoas 
-      SET urlimage = "https://instagram.fthe13-1.fna.fbcdn.net/v/t51.29350-15/250808083_1266146890523278_5791840114336620491_n.webp?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjY0MHg2NDAuc2RyLmYyOTM1MC5kZWZhdWx0X2ltYWdlLmMyIn0&_nc_ht=instagram.fthe13-1.fna.fbcdn.net&_nc_cat=110&_nc_oc=Q6cZ2QEyn_vH80e7b4XYKDWRGI2FpM6cAha0sKJby1XC2dz35jev78i33uWFpQxE5wEygZI&_nc_ohc=Hv7mQfgWt5gQ7kNvwH_TlMr&_nc_gid=Yu5GEEz7Ot8wQifgBGtoaQ&edm=AP4sbd4BAAAA&ccb=7-5&ig_cache_key=MjY5NzgwNTI5MzAzNzk3MTA3OA%3D%3D.3-ccb7-5&oh=00_AfZZuZCU5HkaQnr9RHk-ObAASTf3NG_kQ5HBx_CpFSPRrg&oe=68E47E85&_nc_sid=7a9f4b"
+      SET urlimage = "https://instagram.fthe13-1.fna.fbcdn.net/v/t51.2885-19/564043623_18313498483216206_2649632846223031726_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fthe13-1.fna.fbcdn.net&_nc_cat=106&_nc_oc=Q6cZ2QEM0sbZV2CkwUS2id0NAlUTZ2RzyKgzE1xYstKSTdaYHeuJ8wXDtPhoAHzh56xAJfg&_nc_ohc=YpBhhFPdQ1EQ7kNvwEWtWaN&_nc_gid=QKIJULAPj4J-B6oyhWc4mA&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_Afha2QHCuWM7JPYYAzc-dbsILl89eKhr3eRJQZO__LGnCA&oe=6911205B&_nc_sid=7a9f4b"
       WHERE idpessoa = ${pessoaAdmin.idpessoa};
     `);
 
