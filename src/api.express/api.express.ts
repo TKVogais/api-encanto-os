@@ -26,20 +26,34 @@ export default class ApiExpress {
   static build(): ApiExpress {
     const app = express();
 
-    // ✅ Configuração CORS para aceitar cookies HttpOnly do front-end
+    // 🔐 Domínios permitidos (adicione os fronts válidos aqui)
+    const allowedOrigins = [
+      "https://encanto-3x0idya5q-secretariaencantooutlookcoms-projects.vercel.app",
+      "https://encanto-os.vercel.app",
+      "http://localhost:3000" // opcional, útil para desenvolvimento local
+    ];
+
+    // ✅ Configuração CORS segura
     app.use(cors({
-      origin: "*",
-      credentials: true,
+      origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          console.warn(`❌ Origem não permitida pelo CORS: ${origin}`);
+          callback(new Error("Not allowed by CORS"));
+        }
+      },
+      credentials: true, // necessário para cookies, sessions, etc.
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization", "x-user-permissions"]
     }));
 
-    // ✅ Responde preflight OPTIONS
+    // ✅ Responde automaticamente requisições preflight
     app.options("*", cors());
+
+    // ✅ Body parsers
     app.use(express.json({ limit: "50mb" }));
     app.use(express.urlencoded({ limit: "50mb", extended: true }));
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
 
     return new ApiExpress(app);
   }
@@ -67,25 +81,17 @@ export default class ApiExpress {
         const handlers = [...(route.middlewares || []), route.controller];
         (this.app[method] as any)(route.path, ...handlers);
       } else {
-        console.warn(`Método HTTP desconhecido: ${route.method}`);
+        console.warn(`⚠️ Método HTTP desconhecido: ${route.method}`);
       }
     });
   }
 
   start(port: number = 4000, host: string = "0.0.0.0"): void {
-    if (host) {
-      this.app.listen(port, host, () => {
-        console.log(`Servidor rodando na porta ${port} e no host ${host}`);
-        this.printRoutes();
-      });
-    } else {
-      this.app.listen(port, () => {
-        console.log(`Servidor rodando na porta ${port}`);
-        this.printRoutes();
-      });
-    }
+    this.app.listen(port, host, () => {
+      console.log(`🚀 Servidor rodando em http://${host}:${port}`);
+      this.printRoutes();
+    });
   }
-
 
   private printRoutes(): void {
     const routes = (this.app as any)._router.stack
@@ -95,6 +101,6 @@ export default class ApiExpress {
         method: r.route.stack[0].method
       }));
 
-    console.log("Rotas configuradas:", routes);
+    console.log("📜 Rotas configuradas:", routes);
   }
 }
