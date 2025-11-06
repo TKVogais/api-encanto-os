@@ -8,6 +8,6 @@ export interface IAuthController {
 }
 
 export interface IAuthService {
-    login(auth: AuthDto): Promise<ResAuthDto>
+    login(auth: AuthDto, req: Request): Promise<ResAuthDto>
     authenticate(token: string): Promise<ResAutenticateDto>
 }

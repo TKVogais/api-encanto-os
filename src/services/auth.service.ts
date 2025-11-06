@@ -1,9 +1,10 @@
-import { setRedis } from "../api.express/config.redis";
+import { findSessionByIP, findSessionByUser, setRedis } from "../api.express/config.redis";
 import { AuthDto, ResAutenticateDto, ResAuthDto } from "../DTOs/auth";
 import { IAuthService } from "../interfaces/auth";
 import { IUsuarioService } from "../interfaces/usuarios";
 import { compare } from "../util/hash";
 import { gerarToken, tokenPayload, validarToken } from "../util/jwt";
+import { Request } from "express";
 
 export class AuthService implements IAuthService {
    static readonly ERROR_SERV = "É necessário fornecer um service de usuário.";
@@ -12,10 +13,22 @@ export class AuthService implements IAuthService {
       if (!usuarioService) throw new Error(AuthService.ERROR_SERV);
    }
 
-   async login(auth: AuthDto): Promise<ResAuthDto> {
+   async login(auth: AuthDto, req: Request): Promise<ResAuthDto> {
       const { usuario, senha } = auth;
 
       try {
+
+         console.log(`[IP]: ${req.ip}`)
+         console.log(`[User-Agent]: ${req.headers['user-agent']}`)
+         const session = await findSessionByIP(req.ip)
+
+         if (session) {
+            return {
+               message: "Usuário logado em outro dispositivo!",
+               status: 400
+            };
+         }
+
          // Busca usuário com permissões
          const foundUser = await this.usuarioService.findByUserWithPermissoes(usuario);
 
@@ -57,7 +70,9 @@ export class AuthService implements IAuthService {
             token: token,
             idusuario: foundUser.idusuario,
             permissoes: permissoes,
-            autenticaded: true
+            autenticaded: true,
+            ip: req.ip,
+            userAgent: req.headers['user-agent']
          })
 
          return {

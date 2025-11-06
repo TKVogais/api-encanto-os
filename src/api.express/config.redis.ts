@@ -7,7 +7,9 @@ export interface Session {
     token: string;
     idusuario: number;
     permissoes: Permissao[];
-    autenticaded: boolean
+    autenticaded: boolean,
+    ip: string,
+    userAgent: string
 }
 
 export const getRedis = async <T = any>(key: string): Promise<T | null> => {
@@ -30,6 +32,12 @@ export const findSessionByUser = async (idusuario: number): Promise<Session | nu
     const sessions = await getRedis<Session[]>("sessions");
     if (!sessions) return null;
     return sessions.find(s => s.idusuario === idusuario) || null;
+};
+
+export const findSessionByIP = async (ip: string): Promise<Session | null> => {
+    const sessions = await getRedis<Session[]>("sessions");
+    if (!sessions) return null;
+    return sessions.find(s => s.ip === ip) || null;
 };
 
 export const findSessionByToken = async (token: string): Promise<Session | null> => {

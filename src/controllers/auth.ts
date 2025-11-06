@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { IAuthController, IAuthService } from "../interfaces/auth";
 import Controller, { ControllerMiddlewares } from "../util/controller";
 import { AuthDto } from "../DTOs/auth";
-import { setRedis } from "../api.express/config.redis";
 
 export class AuthController extends Controller implements IAuthController {
 
@@ -23,7 +22,7 @@ export class AuthController extends Controller implements IAuthController {
         const authDto: AuthDto = { usuario, senha };
 
         // Chama o service de login
-        const result = await this.authService.login(authDto);
+        const result = await this.authService.login(authDto, req);
 
         // Se login foi bem-sucedido, seta o cookie HttpOnly
         if (result.status === 200 && result.token) {
