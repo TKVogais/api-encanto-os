@@ -1,5 +1,6 @@
 import express, { Express, RequestHandler } from "express";
 import cors from "cors";
+import 'dotenv/config';
 
 // 🔹 Tipos para rotas
 export interface RouteDefinition {
@@ -25,13 +26,7 @@ export default class ApiExpress {
 
   static build(): ApiExpress {
     const app = express();
-
-    // 🔐 Domínios permitidos (adicione os fronts válidos aqui)
-    const allowedOrigins = [
-      "https://encanto-3x0idya5q-secretariaencantooutlookcoms-projects.vercel.app",
-      "https://encanto-os.vercel.app",
-      "http://localhost:3000" // opcional, útil para desenvolvimento local
-    ];
+    const allowedOrigins = JSON.parse(process.env.CORS_ORIGINS) ?? "*"
 
     // ✅ Configuração CORS segura
     app.use(cors({
