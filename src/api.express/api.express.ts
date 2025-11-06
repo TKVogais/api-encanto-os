@@ -26,7 +26,7 @@ export default class ApiExpress {
 
   static build(): ApiExpress {
     const app = express();
-    const allowedOrigins = JSON.parse(process.env.CORS_ORIGINS) ?? "*"
+    const allowedOrigins = JSON.parse(process.env.CORS_ORIGINS || "[]") 
 
     // ✅ Configuração CORS segura
     app.use(cors({
